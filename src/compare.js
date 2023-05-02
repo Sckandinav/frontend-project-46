@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs';
-import getParse from './parses.js';
+import { getParse } from './parses.js';
 import compareTree from './buildDiffTrees.js';
 
 const readFile = (path) => readFileSync(path, 'utf8');

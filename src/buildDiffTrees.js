@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { getStringFormat } from './parses.js';
 
 const getKeys = (obj) => _.keys(obj);
 
@@ -20,7 +21,7 @@ const compareTree = (filepath1, filepath2) => {
     }
     return { action: ' ', name: element, value: filepath1[element] };
   });
-  const data = (result.flat(Infinity)).map((element) => _.values(element));
+  const data = getStringFormat(result);
   return data;
 };
 
