@@ -1,12 +1,14 @@
-import _ from 'lodash';
+import yaml from 'js-yaml';
 
-const getParse = (data) => JSON.parse(data);
-
-const getStringFormat = (obj) => {
-  const toArr = (obj.flat(Infinity)).map((element) => _.values(element));
-  const data = toArr.map((x) => `${x[0]} ${x[1]}: ${x[2]}`);
-  const toString = data.join('\n');
-  return `{\n${toString}\n}`;
+const parse = (data, format) => {
+  switch (format) {
+    case '.json':
+      return JSON.parse(data);
+    case '.yml':
+    case '.yaml':
+      return yaml.load(data);
+    default:
+      throw new Error(`${format} is not the correct format.`);
+  }
 };
-
-export { getParse, getStringFormat };
+export default parse;

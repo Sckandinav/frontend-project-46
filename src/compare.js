@@ -1,13 +1,16 @@
 import { readFileSync } from 'fs';
-import { getParse } from './parses.js';
+import path from 'path';
 import compareTree from './buildDiffTrees.js';
+import parse from './parses.js';
+
+const getAbsolutPath = (filepath) => path.resolve(process.cwd(), filepath);
+const getFormat = (filename) => path.extname(filename);
+const readFile = (filePath) => parse(readFileSync(filePath, 'utf-8'), getFormat(filePath));
 
 const compare = (filepath1, filepath2) => {
-  const data1 = readFileSync(filepath1, 'utf8');
-  const data2 = readFileSync(filepath2, 'utf8');
-  const dataParse1 = getParse(data1);
-  const dataParse2 = getParse(data2);
-  const data = compareTree(dataParse1, dataParse2);
+  const parsed1 = readFile(getAbsolutPath(filepath1));
+  const parsed2 = readFile(getAbsolutPath(filepath2));
+  const data = compareTree(parsed1, parsed2);
 
   return data;
 };

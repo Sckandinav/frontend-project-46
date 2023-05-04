@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { getStringFormat } from './parses.js';
+import getStringFormat from './utils.js';
 
 const getKeys = (obj) => _.keys(obj);
 
