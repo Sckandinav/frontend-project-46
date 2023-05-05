@@ -1,4 +1,6 @@
-import { expect, describe, it } from '@jest/globals';
+import {
+  expect, describe, it,
+} from '@jest/globals';
 import { fileURLToPath } from 'url';
 import { dirname, resolve } from 'node:path';
 import { readFileSync } from 'node:fs';
@@ -27,6 +29,8 @@ describe('compare tests', () => {
   it('wrong format', () => {
     const file5 = getFixturePath('file1.txt');
     const file6 = getFixturePath('file2.txt');
-    expect(compare(file5, file6)).toThrow();
+    expect(() => {
+      compare(file5, file6);
+    }).toThrow();
   });
 });

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1683232432124" clover="3.2.0">
-  <project timestamp="1683232432124" name="All files">
+<coverage generated="1683233218677" clover="3.2.0">
+  <project timestamp="1683233218677" name="All files">
     <metrics statements="70" coveredstatements="70" conditionals="19" coveredconditionals="18" methods="8" coveredmethods="8" elements="97" coveredelements="96" complexity="0" loc="70" ncloc="70" packages="1" files="4" classes="4"/>
     <file name="buildDiffTrees.js" path="/home/ubuser/projects/frontend-project-46/src/buildDiffTrees.js">
       <metrics statements="28" coveredstatements="28" conditionals="7" coveredconditionals="7" methods="2" coveredmethods="2"/>
