@@ -1,28 +1,26 @@
 import _ from 'lodash';
-import getStringFormat from './utils.js';
 
-const getKeys = (obj) => _.keys(obj);
-
-const compareTree = (filepath1, filepath2) => {
-  const unionKeys = _.sortBy(_.union(getKeys(filepath1), getKeys(filepath2)));
-
-  const result = unionKeys.map((element) => {
-    if (!Object.hasOwn(filepath1, element)) {
-      return { action: '+', name: element, value: filepath2[element] };
+const compareData = (obj1, obj2) => {
+  const keys = [obj1, obj2].flatMap(Object.keys);
+  const unionKeys = _.sortBy(_.union(keys));
+  const nodes = unionKeys.map((key) => {
+    const value1 = obj1[key];
+    const value2 = obj2[key];
+    if (_.isPlainObject(value1) && _.isPlainObject(value2)) {
+      return {
+        key,
+        type: 'nested',
+        children: compareData(value1, value2),
+      };
     }
-    if (!Object.hasOwn(filepath2, element)) {
-      return { action: '-', name: element, value: filepath1[element] };
-    }
-    if (filepath1[element] !== filepath2[element]) {
-      return [
-        { action: '-', name: element, value: filepath1[element] },
-        { action: '+', name: element, value: filepath2[element] },
-      ];
-    }
-    return { action: ' ', name: element, value: filepath1[element] };
+    if (!Object.hasOwn(obj1, key) && Object.hasOwn(obj2, key)) return { key, type: 'added', value: value2 };
+    if (Object.hasOwn(obj1, key) && !Object.hasOwn(obj2, key)) return { key, type: 'removed', value: value1 };
+    if (value1 === value2) return { key, type: 'unchanged', value: value1 };
+    return {
+      key, type: 'changed', value: value2, oldValue: value1,
+    };
   });
-  const data = getStringFormat(result);
-  return data;
+  return nodes;
 };
 
-export default compareTree;
+export default compareData;
