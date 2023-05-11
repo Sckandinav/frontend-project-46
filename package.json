@@ -2,15 +2,15 @@
   "name": "@hexlet/code",
   "type": "module",
   "version": "1.0.0",
-  "description": "[![Actions Status](https://github.com/Sckandinav/frontend-project-46/workflows/hexlet-check/badge.svg)](https://github.com/Sckandinav/frontend-project-46/actions)",
-  "main": "index.js",
+  "description": "Compares two JSON or YAML files and shows the difference.",
+  "main": "src/compare.js",
   "scripts": {
     "test": "npx jest"
   },
   "bin": {
     "gendiff": "bin/gendiff.js"
   },
-  "author": "",
+  "author": "Balov V.",
   "license": "ISC",
   "devDependencies": {
     "@jest/globals": "^29.5.0",
