@@ -8,7 +8,6 @@ const parse = (data, format) => {
     case '.yaml':
       return yaml.load(data);
     default:
-      console.log(format);
       throw new Error(`${format} is not the correct format.`);
   }
 };
