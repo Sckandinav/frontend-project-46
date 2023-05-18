@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.0.0",
   "description": "Compares two JSON or YAML files and shows the difference.",
-  "main": "src/compare.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "npx jest"
   },
