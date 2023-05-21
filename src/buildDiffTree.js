@@ -1,33 +1,28 @@
 import _ from 'lodash';
 
-const buildDiffTree = (obj1, obj2) => {
-  // const keys = [obj1, obj2].flatMap(Object.keys);
-  // const unionKeys = _.sortBy(_.union(keys));
-  const unionKeys = _.sortBy(_.union(Object.keys(obj1), Object.keys(obj2)));
-  const nodes = unionKeys.map((key) => {
-    const value1 = obj1[key];
-    const value2 = obj2[key];
-    if (_.isPlainObject(value1) && _.isPlainObject(value2)) {
+const buildDiffTree = (data1, data2) => {
+  const unionKeys = _.sortBy(_.union(Object.keys(data1), Object.keys(data2)));
+  return unionKeys.map((key) => {
+    if (!Object.hasOwn(data1, key)) {
+      return { key, type: 'added', value: data2[key] };
+    }
+    if (!Object.hasOwn(data2, key)) {
+      return { key, type: 'removed', value: data1[key] };
+    }
+    if (_.isPlainObject(data1[key]) && _.isPlainObject(data2[key])) {
       return {
         key,
         type: 'nested',
-        children: buildDiffTree(value1, value2),
+        children: buildDiffTree(data1[key], data2[key]),
       };
     }
-    if (!Object.hasOwn(obj1, key) && Object.hasOwn(obj2, key)) {
-      return { key, type: 'added', value: value2 };
-    }
-    if (Object.hasOwn(obj1, key) && !Object.hasOwn(obj2, key)) {
-      return { key, type: 'removed', value: value1 };
-    }
-    if (value1 === value2) {
-      return { key, type: 'unchanged', value: value1 };
+    if (_.isEqual(data1[key], data2[key])) {
+      return { key, type: 'unchanged', value: data1[key] };
     }
     return {
-      key, type: 'changed', value: value2, oldValue: value1,
+      key, type: 'changed', value2: data2[key], value1: data1[key],
     };
   });
-  return nodes;
 };
 
 export default buildDiffTree;

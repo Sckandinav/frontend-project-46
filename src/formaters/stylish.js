@@ -25,7 +25,7 @@ const stylish = (innerTree) => {
       case 'unchanged':
         return getValue(node.value, ' ');
       case 'changed':
-        return `${getValue(node.oldValue, '-')}${getValue(node.value, '+')}`;
+        return `${getValue(node.value1, '-')}${getValue(node.value2, '+')}`;
       case 'nested':
         return `${makeIndent(depth)}  ${node.key}: {\n${iter(node.children, depth + 1).join('')}${makeIndent(depth)}  }\n`;
       default:

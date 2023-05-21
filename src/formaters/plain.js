@@ -24,7 +24,7 @@ const plain = (innerTree) => {
         case 'removed':
           return `Property '${property}' was removed`;
         case 'changed':
-          return `Property '${property}' was updated. From ${stringify(node.oldValue)} to ${stringify(node.value)}`;
+          return `Property '${property}' was updated. From ${stringify(node.value1)} to ${stringify(node.value2)}`;
         case 'nested':
           return `${format(node.children, property)}`;
         default:
