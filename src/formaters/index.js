@@ -1,13 +1,13 @@
-import stylish from './stylish.js';
-import plain from './plain.js';
+import makeFormtter from './stylish.js';
+import formatToPlain from './plain.js';
 
 const format = (data, formatName) => {
   switch (formatName) {
     case 'stylish': {
-      return stylish(data);
+      return makeFormtter(data);
     }
     case 'plain': {
-      return plain(data);
+      return formatToPlain(data);
     }
     case 'json': {
       return JSON.stringify(data, null, 2);
